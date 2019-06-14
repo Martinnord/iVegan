@@ -1,0 +1,18 @@
+{
+  "private": true,
+  "scripts": {
+    "build:server": "lerna run build --scope={@ivegan/common,@ivegan/server}",
+    "build:web": "lerna run build --scope={@ivegan/ui,@ivegan/common,@ivegan/web}"
+  },
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
+  },
+  "devDependencies": {
+    "lerna": "3.10.6"
+  },
+  "resolutions": {
+    "graphql": "14.0.2"
+  }
+}
