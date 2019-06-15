@@ -1,7 +1,7 @@
 import "reflect-metadata";
 import { ApolloServer } from "apollo-server-express";
-import * as express from "express";
-import { buildSchema } from "type-graphql";
+import express from "express";
+import { buildSchema, formatArgumentValidationError } from "type-graphql";
 
 import { createTypeormConn } from "./createTypeormConn";
 import { UserResolver } from "./modules/user/UserResolver";
@@ -15,7 +15,8 @@ const startServer = async () => {
   const server = new ApolloServer({
     schema: await buildSchema({
       resolvers: [UserResolver, RegisterResolver]
-    })
+    }),
+    formatError: formatArgumentValidationError
   } as any);
 
   server.applyMiddleware({ app }); // app is from an existing express app
