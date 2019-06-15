@@ -5,6 +5,7 @@ import { buildSchema } from "type-graphql";
 
 import { createTypeormConn } from "./createTypeormConn";
 import { UserResolver } from "./modules/user/UserResolver";
+import { RegisterResolver } from "./modules/user/Register";
 
 const startServer = async () => {
   await createTypeormConn();
@@ -13,8 +14,8 @@ const startServer = async () => {
 
   const server = new ApolloServer({
     schema: await buildSchema({
-      resolvers: [UserResolver]
-    }),
+      resolvers: [UserResolver, RegisterResolver]
+    })
   } as any);
 
   server.applyMiddleware({ app }); // app is from an existing express app
