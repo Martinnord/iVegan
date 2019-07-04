@@ -2,6 +2,7 @@ import "reflect-metadata";
 import { ApolloServer } from "apollo-server-express";
 import express from "express";
 import { buildSchema, formatArgumentValidationError } from "type-graphql";
+import cors from "cors";
 
 import { createTypeormConn } from "./createTypeormConn";
 import { UserResolver } from "./modules/user/UserResolver";
@@ -11,6 +12,13 @@ const startServer = async () => {
   await createTypeormConn();
 
   const app = express();
+
+  app.use(
+    cors({
+      credentials: true,
+      origin: "http://localhost:3000"
+    })
+  );
 
   const server = new ApolloServer({
     schema: await buildSchema({
